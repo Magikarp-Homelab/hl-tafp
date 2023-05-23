@@ -1,2 +1,5 @@
 venv
 .idea
+crawler/data
+
+__pycache__/
