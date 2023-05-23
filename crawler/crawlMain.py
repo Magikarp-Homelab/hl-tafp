@@ -19,6 +19,8 @@ def get_eventids_from_site():
             continue
         link_ids.append(event_id)
 
+    return link_ids
+
 def __parse_id_and_date_from_parent(parent_element):
     parsed_id = parent_element.contents[1].attrs['href'].strip().split('/')[-1]
     parsed_date = parent_element.contents[3].text.strip()

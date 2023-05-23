@@ -1,0 +1,3 @@
+2023-05-24 01:01:09,546 - logger_name - INFO - test
+2023-05-24 01:07:16,572 - crawler-main - INFO - Writing event ids to data/event_ids...
+2023-05-24 01:07:16,573 - crawler-main - INFO - Done writing 647 event ids to data/event_ids

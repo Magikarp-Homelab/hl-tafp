@@ -3,3 +3,5 @@ venv
 crawler/data
 
 __pycache__/
+crawler/__pycache__/
+*.pyc
