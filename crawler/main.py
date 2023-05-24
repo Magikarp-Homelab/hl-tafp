@@ -4,7 +4,7 @@ from util import util
 import logging.config
 
 if __name__ == '__main__':
-    logging.config.fileConfig('logging.conf')
+    logging.config.fileConfig('logger.conf')
     LOG = logging.getLogger('crawler-main')
 
     event_ids_list = crawlMain.get_eventids_from_site()
