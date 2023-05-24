@@ -1,14 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
 from datetime import datetime
 
+from util import util
 from CONSTANTS import URL_EVENTLIST
-from CONSTANTS import HEADERS
 
 
 def get_eventids_from_site():
-    page = requests.get(URL_EVENTLIST, headers=HEADERS)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = util.get_soup(URL_EVENTLIST)
 
     link_elements = soup.findAll('i', 'b-statistics__table-content')
     link_ids = []
