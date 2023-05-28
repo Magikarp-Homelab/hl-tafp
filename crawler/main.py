@@ -43,11 +43,12 @@ if __name__ == '__main__':
         event_ids_list, fight_ids_list = base_crawl()
         # fight_ids_list = ['cb9654746447b934', '3638ee66c7d34fe0', '924f982f0d9d2142', '73700c8c5107f719', '12683e06369d1a83']
     else:
-        fight_ids_list = ['e3aad51099a23ba4', 'cb9654746447b934', '3638ee66c7d34fe0', '924f982f0d9d2142', '73700c8c5107f719', '12683e06369d1a83']
+        fight_ids_list = ['e3aad51099a23ba4']
+        #fight_ids_list = ['e3aad51099a23ba4', 'cb9654746447b934', '3638ee66c7d34fe0', '924f982f0d9d2142', '73700c8c5107f719', '12683e06369d1a83']
         # get events_ids from db
 
     for fight_id in fight_ids_list:
         if fight_util.check_fight_id_in_db(fight_id):
             continue
-        crawlFight.crawl_fight_with_id(fight_id)
+        fight_details = crawlFight.crawl_fight_with_id(fight_id)
         print('Done!')

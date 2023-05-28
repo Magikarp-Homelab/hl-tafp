@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from dataclasses import asdict
 
 
 @dataclass
@@ -34,3 +35,6 @@ class FightDetail:
     target_clinch_hit: int = 0
     target_ground_tot: int = 0
     target_ground_hit: int = 0
+
+    def dict(self):
+        return asdict(self)
