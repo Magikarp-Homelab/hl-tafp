@@ -1,5 +1,3 @@
-import pymongo
-
 from CONSTANTS import COLLECTION_FIGHT_DETAIL
 from util import db_util
 

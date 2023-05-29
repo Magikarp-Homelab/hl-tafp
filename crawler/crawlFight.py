@@ -1,16 +1,28 @@
+import logging.config
+
 from util import util
+from util.fight_util import persist_fight
 from util.fight_detail_util import persist_fight_detail_list
+from crawler.crawlFighter import crawl_fighter_with_id
 from crawler.dataclasses.Fight import Fight
 from crawler.dataclasses.FightDetail import FightDetail
-from CONSTANTS import URL_FIGHT, FIGHT_TITLE_BOUT
+from CONSTANTS import URL_FIGHT
+from CONSTANTS import FIGHT_TITLE_BOUT
 
 
 def crawl_fight_with_id(fight_id: str):
+    LOG = logging.getLogger(__name__)
+    LOG.debug(f'Crawling fight {fight_id}...')
+
     soup = util.get_soup(URL_FIGHT + fight_id)
 
     fight = Fight(id=fight_id)
 
     fighter1, fighter2 = __parse_both_fighter_from_soup(soup)
+
+    crawl_fighter_with_id(fighter1)
+    crawl_fighter_with_id(fighter2)
+
     fight.fighter1_id = fighter1
     fight.fighter2_id = fighter2
     fight.winner_id = __parse_winner_from_soup(soup)
@@ -18,11 +30,12 @@ def crawl_fight_with_id(fight_id: str):
     fight.weight_class = __parse_weight_class_from_bout(soup)
     fight.method, fight.rounds, fight.round_time, fight.referee = __parse_bout_details_from_bout(soup)
 
-    # get details, one detail for each round, roundnr = 0 for totals
+    # get details, one detail for each round, roundNr = 0 for totals
     fight_details = __crawl_fight_details(soup, fight_id, fighter1, fighter2)
 
     # persist data
     persist_fight_detail_list(fight_details)
+    persist_fight(fight)
 
     return fight_details
 
@@ -105,6 +118,7 @@ def __parse_fight_detail_from_soup(soup, ss_soup):
         fighter_detail2.target_ground_hit, fighter_detail2.target_ground_tot = __parse_detail_counts(all_cells[8])
 
     return fighter_detail1, fighter_detail2
+
 
 def __parse_detail_ctrl_time(soup):
     p_eles = soup.findAll('p')

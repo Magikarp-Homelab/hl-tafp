@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from dataclasses import asdict
 
 
 @dataclass
@@ -14,3 +15,6 @@ class Fight:
     rounds: str = ""
     round_time: str = ""
     referee: str = ""
+
+    def dict(self):
+        return asdict(self)
